@@ -57,29 +57,35 @@ $(".navbar-burger").click(function() {
 if ($('.home').length) {
   const windowHeight = $(window).height();
   const minBoatHeight = $(window).width() * 6 / 100;
-  const maxBoatHeight = $(window).width() * 10 / 100;
-  const boatTopMargin = $(window).width() * 1 / 100;
+  const maxBoatHeight = $(window).width() * 12 / 100;
+  const boatTopMargin = $(window).width() * 2 / 100;
+  const boatBottomMargin = $(window).width() * 2 / 100;
 
   function refreshBoat() {
     var scroll = $(window).scrollTop();
-    var top = Math.max(boatTopMargin, windowHeight - scroll - maxBoatHeight);
+    var top = Math.max(boatTopMargin, windowHeight - scroll - maxBoatHeight - boatBottomMargin);
 
     var remaningSpace = top - boatTopMargin;
-    var height = Math.min(maxBoatHeight, remaningSpace + minBoatHeight);
-    var waveOpacity = Math.min((height - minBoatHeight) / (maxBoatHeight - minBoatHeight) , 1);
+    var boatHeight = Math.min(maxBoatHeight, remaningSpace + minBoatHeight);
+    var waveOpacity = Math.min((remaningSpace - minBoatHeight) / (maxBoatHeight - minBoatHeight) , 1);
+    var badgeWaveOpacity = 1 - Math.min((boatHeight - minBoatHeight) / (maxBoatHeight - minBoatHeight) , 1);
+
+    var boatWidth = boatHeight * 409 / 316; // based on ratio of boat.svg
+    var badgeWaveWidth = boatWidth + 8;
 
     $(".boat").css("top", top);
-    $(".boat-ship").css("height", height);
+    $(".boat").css("height", boatHeight);
+    $(".boat-ship").css("height", boatHeight);
     $(".wave-wrapper").css("opacity", waveOpacity);
+    $(".badge-wave-wrapper").css("opacity", badgeWaveOpacity);
+    $(".badge-wave-wrapper").css("width", badgeWaveWidth);
+    $(".badge-wave-wrapper").css("height", badgeWaveWidth);
   };
 
-  $(".boat").addClass('js-controlled-boat');
   refreshBoat()
   $(window).scroll(function() {
     refreshBoat();
   });
-} else {
-  $(".boat").removeClass('js-controlled-boat');
 };
 
 if ($('.page-docs').length) {

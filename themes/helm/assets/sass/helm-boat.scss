@@ -15,15 +15,15 @@
 
 @keyframes boat-badge-bob {
   0% {
-    top: 0.425vw;
+    top: 0;
     transform: rotate(-4deg);
   }
   50% {
-    top: 0.75vw;
+    top: 0.35vw;
     transform: rotate(2deg);
   }
   100% {
-    top: 0.425vw;
+    top: 0;
     transform: rotate(-4deg);
   }
 }
@@ -31,29 +31,29 @@
 // boat full width default
 .boat {
   width: 100vw;
-  position: absolute;
-  top: auto;
-  bottom: 8px;
-  left: 0;
-  right: 0;
+  position: fixed;
+  left: 3.25vw;
   min-height: 10vw;
   z-index: 1070;
+
+  z-index: 4000;
 
   .boat-ship {
     position: absolute;
     margin-top: 0.5vw;
-    left: 3.25vw;
-    bottom: 2vw;
+    // left: 3.25vw;
+    left: 0;
+    top: 0;
     max-width: 15vw;
     z-index: 1060;
-    animation: boat-bob 7s ease-in-out infinite;
+    animation: boat-badge-bob 7s ease-in-out infinite;
     // @include transition;
   }
 
   &:after {
     content: "ahoy!";
     font-family: $mono;
-    font-size: .75rem;
+    font-size: 0.75rem;
     padding: 0.75em;
     color: $navy;
     background: $salmonl;
@@ -70,135 +70,136 @@
     opacity: 1;
     bottom: 11vw;
   }
-  
-  .wave-wrapper {
+}
+
+.badge-wave-wrapper,
+.wave-wrapper {
+  position: absolute;
+  margin: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 15vw;
+  overflow: hidden;
+  z-index: 1014;
+  background-color: transparent;
+  // @include transition;
+
+  &:before {
     position: absolute;
-    margin: 0;
+    bottom: 0;
     left: 0;
-      // offsets for navy border
-      right: 15px;
-      bottom: -8px;
-    height: 15vw;
-    overflow: hidden;
-    z-index: 1014;
-    background-color: transparent;
+    right: 0;
+    content: " ";
+    height: 3.5vw;
+    width: 100%;
+    background: $navyl;
     @include transition;
-
-    &:before {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      content: " ";
-      height: 3.5vw;
-      width: 100%;
-      background: $navyl;
-      @include transition;
-    }
-
-    .waves {
-      position:relative;
-      width: 100%;
-      height: 3vw;
-      margin-top: 9.5vw;
-      margin-bottom: -7px;
-      min-height: 0.5vw;
-      max-height: 2vw;
-      @include transition;
-    }
   }
 
-  .parallax > use {
-    animation: move-forever 25s ease-in-out infinite;
+  .waves {
+    position: relative;
+    width: 100%;
+    height: 3vw;
+    margin-top: 9.5vw;
+    margin-bottom: -7px;
+    min-height: 0.5vw;
+    max-height: 2vw;
+    @include transition;
   }
-  .parallax > use:nth-child(1) {
-    animation-delay: -2s;
-    animation-duration: 7s;
+}
+
+.parallax > use {
+  animation: move-forever 25s ease-in-out infinite;
+}
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
   }
-  .parallax > use:nth-child(2) {
-    animation-delay: -3s;
-    animation-duration: 10s;
+  100% {
+    transform: translate3d(85px, 0, 0);
   }
-  .parallax > use:nth-child(3) {
-    animation-delay: -4s;
-    animation-duration: 13s;
+}
+
+.badge-wave-wrapper,
+.badge-wave-wrapper:before,
+.badge-wave-wrapper:after {
+  bottom: auto;
+  right: auto;
+}
+
+.badge-wave-wrapper {
+  position: absolute;
+  top: -4px;
+  left: -6px;
+  // top: 1vw;
+  // left: calc(3.25vw - 6px);
+
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.05);
+  background-blend-mode: screen;
+  background: rgba(219, 225, 243, 0.5);
+
+  .waves {
+    margin-top: 3.75vw;
+    margin-bottom: -7px;
+    min-height: 0.25vw;
+    max-height: 1.5vw;
   }
-  .parallax > use:nth-child(4) {
-    animation-delay: -5s;
-    animation-duration: 20s;
-  }
-  @keyframes move-forever {
-    0% {
-      transform: translate3d(-90px,0,0);
-    }
-    100% { 
-      transform: translate3d(85px,0,0);
-    }
+
+  &:before {
+    width: 100%;
+    height: 3vw;
+    top: 5.25vw;
   }
 }
 
 // boat fixed nav 'badge' mode
-.boat.boat-badge {
-  position: fixed;
-  top: 1.25vw;
-  left: 2vw;
-  width: 7.5vw;
-  height: 7.5vw;
-  z-index: 1320;
+// .boat.boat-badge {
+//   position: fixed;
+//   top: 1.25vw;
+//   left: 2vw;
+//   width: 7.5vw;
+//   height: 7.5vw;
+//   z-index: 1320;
 
-  &,
-  .boat-ship,
-  .wave-wrapper,
-  .wave-wrapper:before,
-  .wave-wrapper:after {
-    bottom: auto;
-    right: auto;
-  }
+//   .boat-ship {
+//     left: 0.636vw;
+//     top: 0.2vw;
+//     z-index: 1025;
+//     max-width: 7vw;
+//     // animation: boat-badge-bob 7s ease-in-out infinite;
+//   }
 
-  .boat-ship {
-    left: 0.636vw;
-    top: 0.2vw;
-    z-index: 1025;
-    max-width: 7vw;
-    animation: boat-badge-bob 7s ease-in-out infinite;
-  }
+//   &:after {
+//     left: 7.5vw;
+//     top: 2.5vw;
+//     z-index: 1007;
+//     padding: 0.25rem;
+//     height: 1.2rem;
+//     font-size: 0.667rem;
+//   }
 
-  .wave-wrapper {
-    width: 7.5vw;
-    height: 7.5vw;
-    border-radius: 50%;
-    border: 3px solid rgba(255,255,255, 0.05);
-    background-blend-mode: screen;
-    background: rgba(219,225,243,0.5);
-
-    .waves {
-      margin-top: 3.75vw;
-      margin-bottom: -7px;
-      min-height: 0.25vw;
-      max-height: 1.5vw;
-    }
-    
-    &:before {
-      width: 100%;
-      height: 3vw;
-      top: 5.25vw;
-    }
-  }
-
-  &:after {
-    left: 7.5vw;
-    top: 2.5vw;
-    z-index: 1007;
-    padding: 0.25rem;
-    height: 1.2rem;
-    font-size: 0.667rem;
-  }
-
-  &:hover:after {
-    top: 0.75vw;
-  }
-}
-
+//   &:hover:after {
+//     top: 0.75vw;
+//   }
+// }
 
 /*Shrinking for mobile
 @media (max-width: 768px) {
@@ -213,12 +214,3 @@
     font-size:24px;
   }
 }*/
-
-.js-controlled-boat {
-  position: fixed;
-  bottom: unset;
-  top: unset;
-  left: unset;
-  right: unset;
-  z-index: 4000;
-}
