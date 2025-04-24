@@ -47,7 +47,7 @@
     max-width: 15vw;
     z-index: 1060;
     animation: boat-bob 7s ease-in-out infinite;
-    @include transition;
+    // @include transition;
   }
 
   &:after {
@@ -213,3 +213,12 @@
     font-size:24px;
   }
 }*/
+
+.js-controlled-boat {
+  position: fixed;
+  bottom: unset;
+  top: unset;
+  left: unset;
+  right: unset;
+  z-index: 4000;
+}

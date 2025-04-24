@@ -52,16 +52,34 @@ $(".navbar-burger").click(function() {
   $(".sidebar-wrapper").toggleClass("is-active");
 });
 
+
 // a life at sea
 if ($('.home').length) {
-  $(window).scroll(function() {    // this will work when your window scrolled.
-      var height = $(window).scrollTop();  //getting the scrolling height of window
-      if(height  > 600) {
-        $(".boat").addClass('boat-badge');
-      } else{
-        $(".boat").removeClass('boat-badge');
-      }
+  const windowHeight = $(window).height();
+  const minBoatHeight = $(window).width() * 6 / 100;
+  const maxBoatHeight = $(window).width() * 10 / 100;
+  const boatTopMargin = $(window).width() * 1 / 100;
+
+  function refreshBoat() {
+    var scroll = $(window).scrollTop();
+    var top = Math.max(boatTopMargin, windowHeight - scroll - maxBoatHeight);
+
+    var remaningSpace = top - boatTopMargin;
+    var height = Math.min(maxBoatHeight, remaningSpace + minBoatHeight);
+    var waveOpacity = Math.min((height - minBoatHeight) / (maxBoatHeight - minBoatHeight) , 1);
+
+    $(".boat").css("top", top);
+    $(".boat-ship").css("height", height);
+    $(".wave-wrapper").css("opacity", waveOpacity);
+  };
+
+  $(".boat").addClass('js-controlled-boat');
+  refreshBoat()
+  $(window).scroll(function() {
+    refreshBoat();
   });
+} else {
+  $(".boat").removeClass('js-controlled-boat');
 };
 
 if ($('.page-docs').length) {
